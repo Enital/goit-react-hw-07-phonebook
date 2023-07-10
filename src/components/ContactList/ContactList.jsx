@@ -3,7 +3,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchContacts, deleteContact } from "redux/operations";
-import { getContacts, getIsLoading, getVisibleContacts } from "redux/selectors";
+import { getIsLoading, getVisibleContacts } from "redux/selectors";
 import css from './contactList.module.css'
 
 function ContactList() {
