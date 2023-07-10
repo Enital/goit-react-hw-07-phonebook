@@ -14,9 +14,10 @@ function ContactList() {
     useEffect(() => {
         dispatch(fetchContacts());
     }, [dispatch]);
+
     const deleteContactBtn = id => {
         dispatch(deleteContact(id));
-        getContacts();
+        // getContacts();
     }
     
     return (
