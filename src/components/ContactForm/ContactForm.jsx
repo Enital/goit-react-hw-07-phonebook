@@ -1,32 +1,35 @@
 import {useState} from "react";
 import { nanoid } from "nanoid";
 import { useDispatch, useSelector } from "react-redux";
-import { addContact } from "redux/contactSlice";
+import { getContacts } from 'redux/selectors';
+import { addContact } from '../../redux/operations';
+// import { selectContactsList } from "redux/selectors";
 import { Notify } from 'notiflix';
 
 import css from './contactForm.module.css'
 
+
 function ContactForm() {
     const dispatch = useDispatch();
-    const contacts = useSelector(state => state.contacts);
+    const contacts = useSelector(getContacts);
     const [name, setName] = useState('');
-    const [number, setNumber] = useState('');
+    const [phone, setPhone] = useState('');
 
     const handleNameChange = event => {
         setName(event.currentTarget.value)
     };
 
-    const handleNumberSubmit = event => {
-        setNumber( event.currentTarget.value );
+    const handleNumberChange = event => {
+        setPhone( event.currentTarget.value );
     };
 
     const reset = () => {
         setName('');
-        setNumber('');
+        setPhone('');
     }
-    
 
     const handleSubmit = event => {
+        
         event.preventDefault();
         
         if (contacts) {
@@ -39,12 +42,12 @@ function ContactForm() {
                 return;
             }
     
-            const contact = { id: nanoid(), name: name, number: number };
+            const contact = { id: nanoid(), name: name, phone: phone };
             dispatch(addContact(contact));
     
         }
         else {
-            const contact = { id: nanoid(), name: name, number: number };
+            const contact = { id: nanoid(), name: name, phone: phone };
                 console.log(contact)
             dispatch(addContact(contact));
         }
@@ -65,15 +68,15 @@ function ContactForm() {
                     className={css.input}
                 />
             
-            <label className={css.label}>Number</label>
+            <label className={css.label}>Phone</label>
                 <input
                     type="tel"
                     name="number"
                     pattern="\+?\d{1,4}?[\-.\s]?\(?\d{1,3}?\)?[\-.\s]?\d{1,4}[\-.\s]?\d{1,4}[\-.\s]?\d{1,9}"
                     title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
                     required
-                    onChange={handleNumberSubmit}
-                    value={number}
+                    onChange={handleNumberChange}
+                    value={phone}
                     className={css.input}
             />
             
